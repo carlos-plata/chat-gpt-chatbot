@@ -10,7 +10,8 @@ import openai
 
 
 # Custom Function imports
-from functions.openai_requests import convert_audio_to_text
+from functions.database import store_messages, reset_messages
+from functions.openai_requests import convert_audio_to_text, get_chat_response
 
 
 # Initiate app
@@ -42,6 +43,12 @@ app.add_middleware(
 async def check_health():
     return {"message": "Healthy."}
 
+# Reset messages
+@app.get("/reset")
+async def reset_conversation():
+    reset_messages()
+    return {"message": "Conversation reset."}
+
 
 @app.get("/post-audio-get")
 async def get_audio():
@@ -49,11 +56,17 @@ async def get_audio():
     audio_input = open("voice.mp3", "rb")
     # Decode audio
     message_decoded = convert_audio_to_text(audio_input)
-    print(message_decoded)
+    # Guard: ensure message decoded
+    if not message_decoded:
+        return HTTPException(status_code=400, detail="Failed to decode audio.")
+    # Get chatgpt response
+    chat_response = get_chat_response(message_decoded)
+    # Store message
+    store_messages(message_decoded, chat_response)
+    print(chat_response)
     return "Done"
 
 # Post bot response
 # Note: Browser not playing when using post request
 #@app.post("/post-audio")
 #async def post_audio(file: UploadFile = File(...)):
-#    print("hello")
