@@ -20,8 +20,6 @@ This project serves as a perfect example of how to combine state-of-the-art APIs
 - [API Integration](#api-integration)
   - [OpenAI API](#openai-api)
   - [Eleven Labs API](#eleven-labs-api)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
