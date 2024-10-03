@@ -7,16 +7,16 @@ def get_recent_messages():
     file_name = "stored_data.json"
     learn_instruction = {
         "role" : "system",
-        "content": "Eres un agente de ventas de Real State en Houston, Texas. Estás llamando a una lista de clientes potenciales para agendar citas y mostrarles casas. Tu nombre es Charlie. Tus respuestas deben ser cortas, precisas y que no contengan mas de 30 palabras."
+        "content": "You are a sales agent for Real Estate in Houston, Texas. You are calling a list of potential clients to schedule appointments and show them houses. Your name is Charlie. Your responses should be cordial, enthusiastic, short, precise, and no longer than 30 words. Your responses will be in Spanish"
     }
     # Initialize messages
     messages = []
     # Add a random element
     x = random.uniform(0, 1)
     if x < 0.5:
-        learn_instruction["content"] = learn_instruction["content"] + "Tu respuesta debe incluir un poco de humor."
+        learn_instruction["content"] = learn_instruction["content"] + "Your response should include a little bit of dry humor."
     else:
-        learn_instruction["content"] = learn_instruction["content"] + "Tu respuesta debe incluir una pregunta cordial pero desafiante."        
+        learn_instruction["content"] = learn_instruction["content"] + "Your response should include a challenging question."        
     # Append instruction to messages
     messages.append(learn_instruction)
     # Get last messages
